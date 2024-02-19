@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+      - "25585:25585"
+    environment:
+     EULA: "TRUE"
+     TYPE: "MODRINTH"
+     MODRINTH_MODPACK: "sop"
+     MODRINTH_DEFAULT_VERSION_TYPE: "RELEASE"
+     VERSION: "1.20.1" 
+     MEMORY: "8G"
+     ENABLE_WHITELIST: "false"
+     MOTD: "§l§5O.N. Owen was her?"
+     DIFFICULTY: "hard"
+     OVERRIDE_ICON: "true"
+     VIEW_DISTANCE: "12"
+     SIMULATION_DISTANCE: "6"
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - C:\Users\Joe\Documents\Mcdata:/data
+    restart: on-failure:3
+    networks:
+      minecraft:
+        aliases:
+          - minecraft
+  prometheus:
+    image: bitnami/prometheus
+    tty: true
+    stdin_open: true
+    ports:
+    - "9090:9090"
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - C:\Users\Joe\Documents\Prometheus\prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: on-failure:3
+    networks:
+      minecraft:
+        aliases:
+          - prometheus
+  grafana:
+    image: grafana/grafana
+    tty: true
+    stdin_open: true
+    ports:
+    - "3000:3000"
+    restart: on-failure:3
+    networks:
+      minecraft:
+        aliases:
+          - grafana
+  promtail:
+    image: grafana/promtail
+    tty: true
+    stdin_open: true
+    volumes: 
+     - C:\Users\Joe\Documents\Mcdata\logs:/var/log
+    restart: on-failure:3
+    networks:
+      minecraft:
+        aliases:
+          - promtail
+  loki:
+    image: grafana/loki
+    tty: true
+    stdin_open: true
+    ports:
+    - "3100:3100"
+    restart: on-failure:3
+    networks:
+      minecraft:
+        aliases:
+          - loki
+
+networks:
+  minecraft:
+    name: minecraft
