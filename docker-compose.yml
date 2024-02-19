@@ -16,7 +16,7 @@ services:
      VERSION: "1.20.1" 
      MEMORY: "8G"
      ENABLE_WHITELIST: "false"
-     MOTD: "§l§5O.N. Owen was her?"
+     MOTD: "§l§5U.N. Owen was her?"
      DIFFICULTY: "hard"
      OVERRIDE_ICON: "true"
      VIEW_DISTANCE: "12"
