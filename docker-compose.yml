@@ -50,6 +50,10 @@ services:
     ports:
     - "3000:3000"
     restart: on-failure:3
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - /mnt/mc/grafana/grafana_data:/var/lib/grafana
+      - /mnt/mc/grafana/certs:/certs
     networks:
       minecraft:
         aliases:
