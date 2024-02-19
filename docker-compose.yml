@@ -23,7 +23,7 @@ services:
      SIMULATION_DISTANCE: "6"
     volumes:
       # attach the relative directory 'data' to the container's /data path
-      - C:\Users\Joe\Documents\Mcdata:/data
+      - /mnt/mc/McServer-Test:/data
     restart: on-failure:3
     networks:
       minecraft:
@@ -37,7 +37,7 @@ services:
     - "9090:9090"
     volumes:
       # attach the relative directory 'data' to the container's /data path
-      - C:\Users\Joe\Documents\Prometheus\prometheus.yml:/etc/prometheus/prometheus.yml
+      - /mnt/mc/Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     restart: on-failure:3
     networks:
       minecraft:
@@ -59,7 +59,7 @@ services:
     tty: true
     stdin_open: true
     volumes: 
-     - C:\Users\Joe\Documents\Mcdata\logs:/var/log
+     - /mnt/mc/McServer-Test/logs:/var/log
     restart: on-failure:3
     networks:
       minecraft:
